@@ -13,6 +13,13 @@
 
 set -e
 
+# ── 0. Always build client demo branches ─────────────────────────────
+CURRENT_BRANCH="${VERCEL_GIT_COMMIT_REF:-}"
+if [[ "$CURRENT_BRANCH" == client/* ]]; then
+  echo "Client demo branch (${CURRENT_BRANCH}) — building."
+  exit 1
+fi
+
 SLUG="${INDUSTRY_SLUG:?INDUSTRY_SLUG must be set on the Vercel project}"
 
 # ── 1. Shared code paths (rebuild ALL industries when these change) ──
